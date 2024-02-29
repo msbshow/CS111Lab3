@@ -32,7 +32,7 @@ Hash table v2: 396,051 usec
   Actual outputs I got while running my code are below.
 
 ## First Implementation
-In the 'hash_table_v1_add_entry function', I added a single lock around all of the code within hash_table_v1_add_entry. This included the hash_table_entry, list_head, and the list_entry, as well as the actual addition of the entry to the list. A single global lock was created and locked, and then unlocked after the entry to the list was created and added. Afterwards, in hash_table_v1_destroy, the lock was destroyed (in addition to the hash table).
+In the `hash_table_v1_add_entry` function, I added a single lock around all of the code within hash_table_v1_add_entry. This included the hash_table_entry, list_head, and the list_entry, as well as the actual addition of the entry to the list. A single global lock was created and locked, and then unlocked after the entry to the list was created and added. Afterwards, in hash_table_v1_destroy, the lock was destroyed (in addition to the hash table).
 
 ### Performance
 
