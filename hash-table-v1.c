@@ -11,7 +11,7 @@
 
 
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 struct list_entry {
 	const char *key;
@@ -79,7 +79,7 @@ void hash_table_v1_add_entry(struct hash_table_v1 *hash_table,
                              uint32_t value)
 {
 
-	if (pthread_mutex_lock(&mutex) != 0) {
+	if (pthread_mutex_lock(&lock) != 0) {
 
 
 		exit(errno);
@@ -107,7 +107,7 @@ void hash_table_v1_add_entry(struct hash_table_v1 *hash_table,
 	SLIST_INSERT_HEAD(list_head, list_entry, pointers);
 
 
-	if (pthread_mutex_unlock(&mutex) != 0) {
+	if (pthread_mutex_unlock(&lock) != 0) {
 
 		exit(errno);
 
@@ -141,7 +141,7 @@ void hash_table_v1_destroy(struct hash_table_v1 *hash_table)
 	}
 	free(hash_table);
 
-	if (pthread_mutex_destroy(&mutex) != 0) {
+	if (pthread_mutex_destroy(&lock) != 0) {
 
 		exit(errno);
 
