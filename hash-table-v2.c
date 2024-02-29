@@ -26,7 +26,7 @@ struct hash_table_entry {
 	struct list_head list_head;
 
 
-	pthread_mutex_t mutex;
+	pthread_mutex_t lock;
 
 };
 
@@ -42,7 +42,7 @@ struct hash_table_v2 *hash_table_v2_create()
 		struct hash_table_entry *entry = &hash_table->entries[i];
 
 
-		if (pthread_mutex_init(&entry->mutex, NULL) != 0) {
+		if (pthread_mutex_init(&entry->lock, NULL) != 0) {
 
 			exit(errno);
 
@@ -96,7 +96,7 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 {
 	struct hash_table_entry *hash_table_entry = get_hash_table_entry(hash_table, key);
 
-	if (pthread_mutex_lock(&hash_table_entry->mutex) != 0) {
+	if (pthread_mutex_lock(&hash_table_entry->lock) != 0) {
 
 		exit(errno);
 
@@ -120,7 +120,7 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 
 
 
-	if (pthread_mutex_unlock(&hash_table_entry->mutex) != 0) {
+	if (pthread_mutex_unlock(&hash_table_entry->lock) != 0) {
 
 		exit(errno);
 
@@ -147,7 +147,7 @@ void hash_table_v2_destroy(struct hash_table_v2 *hash_table)
 		struct hash_table_entry *entry = &hash_table->entries[i];
 
 
-		if (pthread_mutex_destroy(&entry->mutex) != 0) {
+		if (pthread_mutex_destroy(&entry->lock) != 0) {
 
 			exit(errno);
 
