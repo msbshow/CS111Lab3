@@ -96,7 +96,7 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 {
 	struct hash_table_entry *hash_table_entry = get_hash_table_entry(hash_table, key);
 
-	if (pthread_mutex_unlock(&hash_table_entry->mutex) != 0) {
+	if (pthread_mutex_lock(&hash_table_entry->mutex) != 0) {
 
 		exit(errno);
 
