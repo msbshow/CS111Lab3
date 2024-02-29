@@ -3,7 +3,6 @@ TODO introduction
 
 This code is a hash table implementation that is safe to use concurrently. There are two versions of the implementation that I added (on top of the base implementation and skeleton code given to me by the CS111 Instructors), v1 and v2. v1 uses only one mutex lock (named lock), and is, as a result, slower than the base code given. However, v2 uses a seperate lock for every entry, and is, as a result, faster than the other two implementations.
 
-All testing was done on the seas lnxsrv15 (lnxsrv.seas.ucla.edu)
 
 ## Building
 
@@ -66,7 +65,7 @@ Hash table v1: 1,936,437 usec
 
 
 ```
-Version 1 is a little slower than the base version. As there is only one lock for the implementation to use, each thread must wait their turn to use the same lock. This creates a bottleneck, where the threads are "waiting their turn" to use the singular lock, as only one thread can use the lock at a time. 
+Version 1 is a little slower than the base version. As there is only one lock for the implementation to use, each thread must wait their turn to use the same lock. This creates a bottleneck, where the threads are "waiting their turn" to use the singular lock, as only one thread can use the lock at a time, creating a lot of thread-related overhead.
 However, while it is slower, as you can see, it never missed any entries.
 
 ## Second Implementation
